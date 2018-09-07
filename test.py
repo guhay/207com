@@ -1,3 +1,4 @@
 import pandas as pd
 
-print('test')
+df=pd.read_csv('files/train.csv')
+print(df)
