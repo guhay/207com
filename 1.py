@@ -48,12 +48,47 @@ def get_feature(df):
     df['pay_mean_mean']=(df['pay1_mean']+df['pay2_mean']+df['pay3_mean']+df['pay4_mean'])/4
     df['pay_1_divide_online']=df['1_total_fee']/df['online_time']
     df['pay_mean_divide_online']=df['pay_mean']/df['online_time']
+    #start
+    df['all_online_pay'] = df['online_time'] * df['pay_every']
+    df['all_online_fee'] = df['online_time'] * df['pay_mean']
+    df['all_online_traffic'] = df['online_time'] * ((df['month_traffic'] + df['local_trafffic_month'])/1024)
+    df['all_online_month_traffic'] = df['online_time'] * (df['month_traffic']/1024)
+    df['all_online_last_month_traffic'] = df['online_time'] * (df['last_month_traffic']/1024)
+    df['all_online_local_traffic_month'] = df['online_time'] * (df['local_trafffic_month']/1024)
+    df['all_online_local_caller_time'] = df['online_time'] * (df['local_caller_time']/60)
+    df['all_online_service1_caller_time'] = df['online_time'] * (df['service1_caller_time']/60)
+    df['all_online_service2_caller_time'] = df['online_time'] * (df['service2_caller_time']/60)
+    df['all_online_caller_time'] = df['online_time'] * ((df['local_caller_time'] + df['service1_caller_time'] + df['service2_caller_time'])/60)
 
+    df['all_contract_pay'] = df['contract_time'] * df['pay_every']
+    df['all_contract_fee'] = df['contract_time'] * df['pay_mean']
+    df['all_contract_traffic'] = df['contract_time'] * ((df['month_traffic'] + df['local_trafffic_month'])/1024)
+    df['all_contract_month_traffic'] = df['contract_time'] * (df['month_traffic'] / 1024)
+    df['all_contract_last_month_traffic'] = df['contract_time'] * (df['last_month_traffic'] / 1024)
+    df['all_contract_local_trafffic_month'] = df['contract_time'] * (df['local_trafffic_month'] / 1024)
+    df['all_contract_local_caller_time'] = df['contract_time'] * (df['local_caller_time'] / 60)
+    df['all_contract_service1_caller_time'] = df['contract_time'] * (df['service1_caller_time'] / 60)
+    df['all_contract_service2_caller_time'] = df['contract_time'] * (df['service2_caller_time'] / 60)
+    df['all_contract_caller_time'] = df['contract_time'] * (
+                (df['local_caller_time'] + df['service1_caller_time'] + df['service2_caller_time']) / 60)
+    #end
     df['month_traffic_rate']=df['month_traffic']/(df['month_traffic']+df['local_trafffic_month']+0.01)
     df['local_traffic_rate']=df['local_trafffic_month']/(df['month_traffic']+df['local_trafffic_month']+0.01)
     df['use_this_month_traffic']=df['month_traffic']-df['last_month_traffic']
+    #start
+    df['rate_month_2_1'] = df['1_total_fee']/(df['2_total_fee'] + df['1_total_fee'] + 1)
+    df['rate_month_3_2'] = df['2_total_fee']/(df['3_total_fee'] + df['2_total_fee'] + 1)
+    df['rate_monteh_4_3'] = df['3_total_fee']/(df['3_total_fee'] + df['4_total_fee'] + 1)
+    df['last_now_traffic_rate'] = df['last_month_traffic']/(df['month_traffic'] + df['local_trafffic_month'] + 0.01)
+    df['month_count_traffic'] = df['last_month_traffic'] + df['month_traffic'] + df['local_trafffic_month']
+    df['all_caller_time'] = df['local_caller_time'] + df['service1_caller_time'] +df['service2_caller_time']
+    df['rate_local_all_caller_time'] = df['local_caller_time']/(df['all_caller_time']+1)
+    df['rate_service1_all_caller_time'] = df['service1_caller_time']/(df['all_caller_time']+1)
+    df['rate_service2_all_caller_time'] = df['service2_caller_time']/(df['all_caller_time']+1)
+    df['rate_local_service_caller_time'] = df['local_caller_time']/(df['service1_caller_time']+df['service2_caller_time'])
+    #end
     df['traffic_all']=df['month_traffic']+df['local_trafffic_month']
-    df['last_traffic_ratr']=df['last_month_traffic']/(df['month_traffic']+0.01)
+    df['last_traffic_rate']=df['last_month_traffic']/(df['month_traffic']+0.01)
     df['last_traffic_pay_now']=df['last_month_traffic']/df['1_total_fee']
     df['last_traffic_pay_last']=df['last_month_traffic']/df['2_total_fee']
     df['traffic_pay_now']=df['month_traffic']/df['1_total_fee']
